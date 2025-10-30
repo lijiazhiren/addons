@@ -12,6 +12,10 @@ RUN \
         vlc \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
     && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
+
+EXPOSE 8080/tcp                                                                  
+                                                                                 
+EXPOSE 8080/udp
         
 WORKDIR /
 COPY rootfs /
