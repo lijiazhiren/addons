@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio  # 确保这一行是正确的 HA Shebang
+#!/usr/bin/with-contenv bashio
 
 bashio::log.info "Starting custom alarm player service..."
 
@@ -27,4 +27,5 @@ bashio::log.info "Starting custom alarm player service..."
 # 或 meMp3Player 之一会以守护进程形式运行并提供 8080 端口服务。
 
 # 如果它们都后台运行且运行结束后不退出，那么你的 ADD-ON 的基础 S6 进程会自动保持容器活跃。
+
 
