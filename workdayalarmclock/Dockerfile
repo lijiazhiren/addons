@@ -4,7 +4,7 @@
 
 # -----------------------------------------------------------
 
-FROM ghcr.io/home-assistant/alpine-base:3.18
+FROM ghcr.io/home-assistant/alpine-base:latest
 
 
 
