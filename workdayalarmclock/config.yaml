@@ -1,33 +1,28 @@
 ---
-version: 1.0.0             # 启动新版本
-slug: custom_player        # 更改 slug 以避免与官方 VLC 冲突
-name: Custom Alarm Player  
-description: A custom alarm clock and music player add-on
-url: https://github.com/lijiazhiren/addons/tree/master/custom_player
-
+version: 1.0.0
+slug: vlc
+name: VLC Custom Player
+description: Turn your device into a Media Player with VLC and custom alarm clock
+url: https://github.com/lijiazhiren/addons/tree/master/vlc
 arch:
   - amd64
   - i386
   - armv7
   - aarch64
-audio: true              # 如果需要访问宿主机音频，请保留，否则删除
-homeassistant: 2024.1.0    # 推荐使用较新的版本号
-#image: lijiazhiren/{arch}-addon-custom_player # 最好删除，强制本地构建 (如上一个回答所述)
-
-# 暴露端口，让 HA 知道容器内部 8080 端口的服务
-ports:
-  8080/tcp: null           # null 表示让 HA 随机分配宿主机端口，或者指定一个宿主机端口，例如 8123
-
-# Ingress 配置，用于在 HA 界面内嵌 Web UI
+audio: true
+discovery:
+  - vlc_telnet
+homeassistant: 2024.1.0
 ingress: true
-panel_icon: mdi:music-box-multiple
-
 init: false
 map:
   - share:ro
   - media:ro
-
+ports:
+  8080/tcp: null
+  8080/udp: null
 options: {}
+panel_icon: mdi:vlc
 schema: false
 stage: stable
 startup: services
