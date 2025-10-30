@@ -16,6 +16,9 @@ RUN \
 WORKDIR /
 COPY rootfs /
 
+RUN chmod +x /usr/local/bin/workdayAlarmClock \
+    && chmod +x /usr/local/bin/meMp3Player
+
 EXPOSE 8080/tcp
 EXPOSE 8080/udp
 
