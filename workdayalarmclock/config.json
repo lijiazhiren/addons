@@ -18,8 +18,8 @@
   "ports_description": {
     "8080/tcp": "Workday Alarm Clock Web Interface"
   },
-  "host_network": false,      // 不再需要主机网络
-  "devices": [],              // 不再需要设备映射
-  "privileged": false,        // 不再需要最高权限
-  "homeassistant_api": true   // **关键：允许调用 HA API**
+  "host_network": false,
+  "devices": [],
+  "privileged": false,
+  "homeassistant_api": true
 }
