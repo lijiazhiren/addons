@@ -1,30 +1,22 @@
-#!/usr/bin/env bashio
+#!/usr/bin/env bash
 
-# ----------------------------------------------------
-# 启动你的两个程序，并让容器保持运行
-# ----------------------------------------------------
+# 使你的程序可执行 (假设它们是二进制文件或脚本)
+chmod +x /workdayAlarmClock
+chmod +x /meMp3Player
 
-bashio::log.info "Starting workdayAlarmClock..."
-# 以前台方式运行 workdayAlarmClock，它将启动 meMp3Player
-# 如果 workdayAlarmClock 会一直运行，它将接管容器的主进程
-/usr/local/bin/workdayAlarmClock /usr/local/bin/meMp3Player
+# 运行你要求的命令
+echo "Starting Workday Alarm Clock with MP3 Player..."
+# 假设你的文件位于容器的根目录 / (通过 Dockerfile 或 build 过程)
+/workdayAlarmClock /meMp3Player
 
-# 假设 workdayAlarmClock 运行后会阻塞（前台运行），
-# 并且它内部负责启动 meMp3Player 和 Web 服务。
+# 保持容器运行 (如果你的程序不是一个长时间运行的进程，
+# 并且你想让 Add-on 一直运行，可能需要一个循环)
+# 如果 workdayAlarmClock 是一个常驻进程，则不需要下面的 wait。
+# 如果它运行一次就退出，那么 Add-on 也会退出。
+# 为了演示，我们假设它是一个常驻进程。
 
-# 如果 workdayAlarmClock 退出，容器就会退出。
-# 如果它不是一个阻塞程序，你需要将其后台运行，并用其他服务保持容器存活。
-
-# ----------------------------------------------------
-# 替代方案（如果 workdayAlarmClock 不是阻塞程序）
-# ----------------------------------------------------
-# /usr/local/bin/workdayAlarmClock /usr/local/bin/meMp3Player &
-#
-# # 启动一个轻量级的，永不退出的服务来保持容器存活，
-# # 例如，如果你不需要 VLC 或 Nginx，这个容器可能会使用一个简单的 'sleep infinity'。
-# # 但 HA Add-on 的基础镜像通常已经包含 S6 进程管理，
-# # 你可能需要启动一个 S6 服务来保持活跃。
-
-# 由于你的程序需要浏览器控制，我们假设 workdayAlarmClock 
-# 或 meMp3Player 之一会以守护进程形式运行并提供 8080 端口服务。
-# 如果它们都后台运行且运行结束后不退出，那么你的 ADD-ON 的基础 S6 进程会自动保持容器活跃。
+# 如果你的程序是常驻进程，上面的命令就会阻塞，容器保持运行。
+# 如果不是，你需要一个无限循环来保持容器存活，例如：
+# while true; do
+#   sleep 30
+# done
