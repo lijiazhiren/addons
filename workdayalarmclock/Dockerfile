@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
-# 使用标准 Alpine 镜像作为基础镜像 (解决 403 错误)
+# 使用标准的 Debian 基础镜像 (与 Ubuntu/glibc 兼容)
 # -----------------------------------------------------------
-FROM alpine:3.18
+FROM debian:bookworm-slim
 
 # 设置作者
 LABEL io.hass.name="Workday Alarm Clock" io.hass.version="1.0.0"
@@ -9,24 +9,26 @@ LABEL io.hass.name="Workday Alarm Clock" io.hass.version="1.0.0"
 # -----------------------------------------------------------
 # 安装依赖
 # -----------------------------------------------------------
-RUN apk update && \
-    apk add --no-cache \
+# Debian 环境下，依赖包名略有不同
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         bash \
         sox \
         curl \
+        # ALSA 音频依赖
         alsa-utils \
-        alsa-lib \
-        alsa-lib-dev && \
-    rm -rf /var/cache/apk/*
+        libasound2 \
+        libsox-fmt-all && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # -----------------------------------------------------------
 # 复制程序文件和启动脚本
 # -----------------------------------------------------------
-# 将 rootfs 目录下的所有文件复制到容器的根目录
 COPY rootfs/ /
 
 # -----------------------------------------------------------
-# 赋予可执行权限 (路径已修正，现在 run.sh 应该在根目录下)
+# 赋予可执行权限 (路径保持不变)
 # -----------------------------------------------------------
 RUN chmod +x /usr/bin/workdayAlarmClock /usr/bin/meMp3Player /run.sh
 
@@ -35,5 +37,5 @@ RUN chmod +x /usr/bin/workdayAlarmClock /usr/bin/meMp3Player /run.sh
 # -----------------------------------------------------------
 EXPOSE 8080/tcp
 
-# 启动命令：直接运行 /run.sh 脚本 (已修正)
+# 启动命令：直接运行 /run.sh 脚本
 CMD [ "/bin/bash", "/run.sh" ]
