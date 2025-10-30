@@ -32,6 +32,8 @@
 
   "host_network": true,
 
+  "privileged": true,
+
   "devices": [
 
     "/dev/snd"
