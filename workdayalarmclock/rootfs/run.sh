@@ -1,14 +1,12 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/with-contenv bashio  # 确保这一行是正确的 HA Shebang
 
-# ----------------------------------------------------
-# 启动你的两个程序，并让容器保持运行
-# ----------------------------------------------------
+bashio::log.info "Starting custom alarm player service..."
 
-bashio::log.info "Starting workdayAlarmClock..."
-# 以前台方式运行 workdayAlarmClock，它将启动 meMp3Player
-# 如果 workdayAlarmClock 会一直运行，它将接管容器的主进程
-/usr/local/bin/workdayAlarmClock /usr/local/bin/meMp3Player
+# 启动你的程序，以后台方式运行，防止阻塞 S6 进程
+/usr/local/bin/workdayAlarmClock /usr/local/bin/meMp3Player &
 
+# 容器的主进程由 S6-Overlay 接管，只要 /usr/bin/with-contenv bashio 
+# 成功启动 S6 服务（legacy-services），容器就不会退出。
 # 假设 workdayAlarmClock 运行后会阻塞（前台运行），
 # 并且它内部负责启动 meMp3Player 和 Web 服务。
 
@@ -29,3 +27,4 @@ bashio::log.info "Starting workdayAlarmClock..."
 # 或 meMp3Player 之一会以守护进程形式运行并提供 8080 端口服务。
 
 # 如果它们都后台运行且运行结束后不退出，那么你的 ADD-ON 的基础 S6 进程会自动保持容器活跃。
+
