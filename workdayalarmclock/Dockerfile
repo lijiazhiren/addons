@@ -22,4 +22,5 @@ EXPOSE 8080/tcp
 # 4. 启动：使用 run.sh 作为容器启动入口
 # HA Add-on 的标准做法是使用 /run.sh 或 /init。
 # 我们使用 /run.sh，它将在 /usr/bin/with-contenv bashio 内部执行
+
 CMD [ "/run.sh" ]
