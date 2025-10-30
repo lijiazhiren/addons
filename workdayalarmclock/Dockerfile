@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# 使用标准的 Debian 基础镜像 (与 Ubuntu/glibc 兼容)
+# 使用标准的 Debian 基础镜像 (与您的程序兼容)
 # -----------------------------------------------------------
 FROM debian:bookworm-slim
 
@@ -9,16 +9,10 @@ LABEL io.hass.name="Workday Alarm Clock" io.hass.version="1.0.0"
 # -----------------------------------------------------------
 # 安装依赖
 # -----------------------------------------------------------
-# Debian 环境下，依赖包名略有不同
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         bash \
-        sox \
-        curl \
-        # ALSA 音频依赖
-        alsa-utils \
-        libasound2 \
-        libsox-fmt-all && \
+        curl && \  // 仅保留 curl (如果您程序内部依赖它)
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -28,14 +22,14 @@ RUN apt-get update && \
 COPY rootfs/ /
 
 # -----------------------------------------------------------
-# 赋予可执行权限 (路径保持不变)
+# 赋予可执行权限 (只需对 workdayAlarmClock 和 run.sh)
 # -----------------------------------------------------------
-RUN chmod +x /usr/bin/workdayAlarmClock /usr/bin/meMp3Player /run.sh
+RUN chmod +x /usr/bin/workdayAlarmClock /run.sh
 
 # -----------------------------------------------------------
 # 容器运行时配置
 # -----------------------------------------------------------
 EXPOSE 8080/tcp
 
-# 启动命令：直接运行 /run.sh 脚本
+# 启动命令
 CMD [ "/bin/bash", "/run.sh" ]
