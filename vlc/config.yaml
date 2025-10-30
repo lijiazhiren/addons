@@ -23,6 +23,9 @@ options: {}
 ports:
   8081/tcp: 8081
   8081/udp: 8081
+ports_description:
+  8081/tcp:
+  8081/udp:
 panel_icon: mdi:vlc
 schema: false
 stage: stable
