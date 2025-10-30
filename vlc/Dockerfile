@@ -13,17 +13,10 @@ RUN \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
     && sed -i '197s#.*#    dir = dir == undefined ? "file:///media" : dir;#' /usr/share/vlc/lua/http/js/controllers.js
 
+WORKDIR /
+COPY rootfs /
+
 EXPOSE 8080/tcp
 EXPOSE 8080/udp
 
 CMD ["sh", "-c", "/usr/local/bin/workdayAlarmClock & /usr/local/bin/meMp3Player && wait"]
-
-
-
-
-
-
-
-        
-WORKDIR /
-COPY rootfs /
