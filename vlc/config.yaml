@@ -1,7 +1,7 @@
 ---
 version: 0.3.1
-slug: vlc
-name: VLC
+slug: vlc2
+name: VLC2
 description: Turn your device into a Media Player with VLC
 url: https://github.com/home-assistant/addons/tree/master/vlc
 arch:
@@ -9,9 +9,6 @@ arch:
   - i386
   - armv7
   - aarch64
-audio: true
-discovery:
-  - vlc_telnet
 homeassistant: 2021.3.0.dev20210216
 image: homeassistant/{arch}-addon-vlc
 ingress: true
