@@ -13,7 +13,8 @@ boot: manual
 description: Scan for HDMI CEC devices
 image: homeassistant/{arch}-addon-cec_scan
 options: {}
+ports:
+  8081/tcp: 8081
 schema: {}
 startup: once
-video: true
 init: false
