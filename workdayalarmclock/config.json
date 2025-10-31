@@ -12,13 +12,7 @@
   "schema": {
     "MEDIA_PLAYER_ENTITY_ID": "str"
   },
-  "ports": {
-    "8080/tcp": 8080
-  },
-  "ports_description": {
-    "8080/tcp": "Workday Alarm Clock Web Interface"
-  },
-  "host_network": false,
+  "host_network": true,
   "devices": [],
   "privileged": false,
   "homeassistant_api": true
