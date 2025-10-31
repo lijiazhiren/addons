@@ -10,7 +10,7 @@ arch:
   - armv7
   - aarch64
 homeassistant: 2021.3.0.dev20210216
-image: homeassistant/{arch}-addon-vlc
+#image: homeassistant/{arch}-addon-vlc
 ingress: true
 init: false
 map:
