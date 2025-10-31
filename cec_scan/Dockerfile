@@ -1,34 +1,30 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Build libcec for HDMI-CEC
-ARG LIBCEC_VERSION
-WORKDIR /usr/src
-RUN \
-    apk add --no-cache \
-        eudev-libs\
-        p8-platform \
-    && apk add --no-cache --virtual .build-dependencies \
-        build-base \
-        cmake \
-        eudev-dev \
-        git \
-        p8-platform-dev \
-        swig \
-        linux-headers \
-    && git clone --depth 1 -b libcec-${LIBCEC_VERSION} \
-        "https://github.com/Pulse-Eight/libcec" libcec \
-    && mkdir -p libcec/build \
-    && cd libcec/build \
-    && cmake \
-        -DCMAKE_INSTALL_PREFIX:PATH=/usr/local \
-        -DHAVE_LINUX_API=1 \
-        .. \
-    && make -j$(nproc) \
-    && make install \
-    && apk del --no-cache .build-dependencies \
-    && rm -rf /usr/src/*
+WORKDIR /usr/bin
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        bash \
+        sox \
+        curl && \  // 仅保留 curl (如果您程序内部依赖它)
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy data
+# -----------------------------------------------------------
+# 复制程序文件和启动脚本
+# -----------------------------------------------------------
 WORKDIR /
 COPY rootfs /
+
+# -----------------------------------------------------------
+# 赋予可执行权限 (只需对 workdayAlarmClock 和 run.sh)
+# -----------------------------------------------------------
+RUN chmod +x /usr/bin/workdayAlarmClock /run.sh
+
+# -----------------------------------------------------------
+# 容器运行时配置
+# -----------------------------------------------------------
+EXPOSE 8080/tcp
+
+# 启动命令
+CMD [ "/bin/bash", "/run.sh" ]
