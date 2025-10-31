@@ -4,10 +4,7 @@ FROM debian:bookworm-slim
 
 WORKDIR /usr/bin
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-#        bash \
-        sox \
-        curl \
+    apt-get install -y --no-install-recommends sox curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
