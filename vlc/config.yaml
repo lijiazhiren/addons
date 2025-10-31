@@ -17,6 +17,7 @@ map:
   - share:ro
   - media:ro
 options: {}
+host_network: true
 panel_icon: mdi:vlc
 schema: false
 stage: stable
