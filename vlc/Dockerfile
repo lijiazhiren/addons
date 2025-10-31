@@ -11,7 +11,7 @@ RUN apt-get update && \
 WORKDIR /
 COPY rootfs /
 
-RUN chmod +x /bin/workdayAlarmClock /run.sh
+RUN chmod +x /usr/bin/workdayAlarmClock /run.sh
 
 EXPOSE 8080/tcp
 
