@@ -10,11 +10,15 @@ arch:
   - aarch64
   - amd64
   - i386
+audio: true
 init: false
 map:
   - share:rw
 options:
   message: "Hello world..."
+ports:
+  8080/tcp: 8080
+  8080/udp: 8080
 schema:
   message: "str?"
-image: "ghcr.io/home-assistant/{arch}-addon-example"
+#image: "ghcr.io/home-assistant/{arch}-addon-example"
