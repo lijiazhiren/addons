@@ -1,7 +1,7 @@
 ---
-version: 0.3.1
-slug: vlc
-name: VLC
+version: 0.3.2
+slug: vlc22
+name: VLC22
 description: Turn your device into a Media Player with VLC
 url: https://github.com/home-assistant/addons/tree/master/vlc
 arch:
@@ -13,13 +13,16 @@ audio: true
 discovery:
   - vlc_telnet
 homeassistant: 2021.3.0.dev20210216
-image: homeassistant/{arch}-addon-vlc
+#image: homeassistant/{arch}-addon-vlc
 ingress: true
 init: false
 map:
   - share:ro
   - media:ro
 options: {}
+ports:
+  8080/tcp: 8080
+  8080/udp: 8080
 panel_icon: mdi:vlc
 schema: false
 stage: stable
