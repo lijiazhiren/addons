@@ -1,12 +1,22 @@
-# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
+
 ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM debian:bookworm-slim
 
-# Execute during the build of the image
-ARG TEMPIO_VERSION BUILD_ARCH
-RUN \
-    curl -sSLf -o /usr/bin/tempio \
-    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
+WORKDIR /
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends sox curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy root filesystem
-COPY rootfs /
+WORKDIR /
+
+RUN curl -L https://github.com/zanjie1999/workdayAlarmClockGo/releases/latest/download/workdayAlarmClock-linux -o /workdayAlarmClock && \
+    chmod +x /workdayAlarmClock && \
+    curl -L https://github.com/zanjie1999/meMp3Player/releases/latest/download/meMp3Player-linux -o /meMp3Player && \
+    chmod +x /meMp3Player
+
+RUN chmod +x /run.sh
+
+EXPOSE 8080/tcp
+
+CMD [ "/bin/bash", "/run.sh" ]
