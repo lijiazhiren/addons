@@ -5,7 +5,7 @@ WORKDIR /
 
 # 步骤 1: 安装所有依赖，包括 sox, curl, alsa-utils, wget 和 必需的 ca-certificates
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends sox curl alsa-utils wget && \
+    apt-get install -y --no-install-recommends sox curl alsa-utils wget ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
