@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends sox curl alsa-utils wget ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
+COPY rootfs /
 # 步骤 2: 使用 wget 下载文件并赋予执行权限
 # wget 的 -O (大写O) 用于指定输出文件路径和名称
 # wget 默认也会跟随重定向，类似于 curl -L
