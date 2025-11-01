@@ -4,7 +4,7 @@ FROM debian:bookworm-slim
 
 WORKDIR /
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends sox curl && \
+    apt-get install -y --no-install-recommends sox curl alsa-utils && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
