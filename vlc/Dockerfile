@@ -17,7 +17,7 @@ RUN \
         
 WORKDIR /
 COPY rootfs /
-chmod +x /workdayAlarmClock /run.sh
+RUN chmod +x /workdayAlarmClock /run.sh
 EXPOSE 8081/tcp
 
 CMD [ "/bin/bash", "/run.sh" ]
