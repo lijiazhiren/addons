@@ -10,9 +10,9 @@ RUN apt-get update && \
 
 WORKDIR /
 
-RUN curl -L https://github.com/zanjie1999/workdayAlarmClockGo/releases/latest/download/workdayAlarmClock-linux -o /workdayAlarmClock && \
+RUN ADD -L https://github.com/zanjie1999/workdayAlarmClockGo/releases/latest/download/workdayAlarmClock-linux -o /workdayAlarmClock && \
     chmod +x /workdayAlarmClock && \
-    curl -L https://github.com/zanjie1999/meMp3Player/releases/latest/download/meMp3Player-linux -o /meMp3Player && \
+    ADD -L https://github.com/zanjie1999/meMp3Player/releases/latest/download/meMp3Player-linux -o /meMp3Player && \
     chmod +x /meMp3Player
 
 RUN chmod +x /run.sh
