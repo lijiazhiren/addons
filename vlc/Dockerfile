@@ -8,6 +8,8 @@ RUN \
     && apk add --no-cache \
         inotify-tools \
         nginx \
+        curl \
+        sox \
         pwgen \
         vlc \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc \
@@ -15,3 +17,7 @@ RUN \
         
 WORKDIR /
 COPY rootfs /
+chmod +x /workdayAlarmClock /run.sh
+EXPOSE 8081/tcp
+
+CMD [ "/bin/bash", "/run.sh" ]
